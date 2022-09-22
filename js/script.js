@@ -7,7 +7,7 @@ const cafes = [
         price: 990,
         category: 'BLEND-BRASIL',
         description: 'Café Autentico Blend. Notas: Aroma dulce a almendra tostada y chocolate',
-        image: 'images/AUTENTICO-BLENDS.jpg'
+        image: 'Images/AUTENTICO-BLENDS.jpg'
     },
     {
         id: 2,
@@ -15,7 +15,7 @@ const cafes = [
         price: 1290,
         category: 'BLEND-M',
         description: 'Café Chango Blend. Notas: Frutos Secos & Maduros',
-        image: 'images/CHANGO-BLENDS.jpg'
+        image: 'Images/CHANGO-BLENDS.jpg'
     },
     {
         id: 3,
@@ -23,7 +23,7 @@ const cafes = [
         price: 1290,
         category: 'BLEND-M',
         description: 'Cafe Chullo Blend. Notas: Cítricas & Cacao',
-        image: 'images/CHULLO-BLENDS.jpg'
+        image: 'Images/CHULLO-BLENDS.jpg'
     },
     {
         id: 4,
@@ -31,7 +31,7 @@ const cafes = [
         price: 990,
         category: 'BLEND-BRASIL',
         description: 'Café Crema Blend. Notas: Aroma intenso a Chocolate',
-        image: 'images/CREMA-BLENDS.jpg'
+        image: 'Images/CREMA-BLENDS.jpg'
     },
     {
         id: 5,
@@ -39,7 +39,7 @@ const cafes = [
         price: 2650,  
         category: 'COLOMBIA-M',
         description: 'Café Santander, Colombia. Notas: azucar morena, miel y cacao',     
-        image: 'images/SANTANDER-COLOMBIA.jpg'
+        image: 'Images/SANTANDER-COLOMBIA.jpg'
     },
     {
         id: 6,
@@ -47,7 +47,7 @@ const cafes = [
         price: 990,
         category: 'BLEND-BRASIL',
         description: 'Café Fresco Blend. Notas: Aroma dulce a almendra tostada. Acidez dulce a naranja',       
-        image: 'images/FRESCO-BLENDS.jpg'
+        image: 'Images/FRESCO-BLENDS.jpg'
     },
     {
         id: 7,
@@ -55,7 +55,7 @@ const cafes = [
         price: 1803,
         category: 'BRASIL-M',    
         description: 'Café Minas Gerais, Brasil. Notas: azucar mascabo, fruta madura y chocolate',
-        image: 'images/MINA-GERAIS-BRASIL.jpg'
+        image: 'Images/MINA-GERAIS-BRASIL.jpg'
     },
     {
         id: 8,
@@ -63,7 +63,7 @@ const cafes = [
         price: 2300,
         category: 'GUATEMALA-ORGANICO',   
         description: 'Café Coban, Guatemala. Notas: dulce y sabroso con acidez tartárica, sabores praliné, tofee, manzana, cítricos',
-        image: 'images/COBAN-GUATEMALA.jpg'
+        image: 'Images/COBAN-GUATEMALA.jpg'
     }
 ];
 
