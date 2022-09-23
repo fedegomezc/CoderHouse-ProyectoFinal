@@ -119,4 +119,10 @@ section{
     text-align:center;
 }
 
+.cart-item .buttonX {
+    padding: 0.3em;
+    background-color: rgba(216, 204, 197, 1);
+    color: rgba(12, 12, 12, 1);
+    font-family: 'Roboto',sans-serif;
+}
 
