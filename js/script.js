@@ -1,13 +1,16 @@
 // Products cart
 const cart = [];
 
+// Select section #container node
+let container = document.querySelector('#container');
+// Get the cart section node
+let cartContainer = document.querySelector('#cart');
+
 // dynamic loading of products
 // Products data is in 'products.js'
 // If another product is added in 'cafes' array, the page is automatically updated
 const loadProducts = (cafes) =>
 {
-    // Select section #container node
-    let container = document.querySelector('#container');
     // Looping Products array
     for (const cafe of cafes) 
     {
@@ -72,8 +75,6 @@ const addToCart = (id) =>
 // every time a product is added the cart is updated
 const updateCart = (cart) =>
 {
-    // Get the cart section node
-    let cartContainer = document.querySelector('#cart');
     // Get the child element node
     let container = document.getElementById("cartContainer");
     // if the container exist it is removed
@@ -140,6 +141,30 @@ const xButtonEvent = () =>
         button.addEventListener('click', ()=> removeItemFromCart(button.id))
     }
 }
+
+let inputFilter = document.querySelector("#productFilter");
+
+// Search Filter
+const searchProd = () => 
+{
+    // save the input value
+    parameter = inputFilter.value.trim().toUpperCase();
+    
+    if (parameter !== "") {
+        // save the array with the match objects
+        const result = cafes.filter(cafe => cafe.name.includes(parameter))
+        if(result.length === 0) {
+            container.innerHTML = ""
+        } else {
+            container.innerHTML = ""
+            loadProducts(result)
+        }
+    } else {
+        container.innerHTML = ""
+        loadProducts(cafes)
+    }
+}
+inputFilter.addEventListener("input", searchProd)
 
 loadProducts(cafes);
 buttonEvent()
