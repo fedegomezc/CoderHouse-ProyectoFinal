@@ -29,9 +29,10 @@ const loadProducts = (cafes) =>
         // Add 'div' to container section
         container.appendChild(div);
     }
+    buttonEvent()
 }
 
-// buttons function
+// buttons function - addToCart
 const buttonEvent = () => 
 {
     // Select all buttons
@@ -167,4 +168,3 @@ const searchProd = () =>
 inputFilter.addEventListener("input", searchProd)
 
 loadProducts(cafes);
-buttonEvent()
