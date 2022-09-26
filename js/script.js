@@ -1,12 +1,13 @@
 // Products cart
 let cart = [];
 
-// Select section #container node
+// Select section node
 let container = document.querySelector('#container');
-// Get the cart section node
 let cartContainer = document.querySelector('#cart');
+let inputFilter = document.querySelector("#productFilter");
 
-// dynamic loading of products
+
+//////////////// Dynamic loading of products ///////////////////////
 // Products data is in 'products.js'
 // If another product is added in 'cafes' array, the page is automatically updated
 const loadProducts = (cafes) =>
@@ -32,7 +33,7 @@ const loadProducts = (cafes) =>
     buttonEvent()
 }
 
-
+////////////////////// Cart functions ////////////////////////
 // buttons function - addToCart
 const buttonEvent = () => 
 {
@@ -53,6 +54,7 @@ const addToCart = (id) =>
             {
                 // it's already in the cart
                 found.quantity++;
+                // localStorage value is replaced
                 localStorage.removeItem(`${id}`)
                 localStorage.setItem(`${found.id}`, JSON.stringify(found))
             }
@@ -71,7 +73,7 @@ const addToCart = (id) =>
                         quantity: 1
                     }
                     cart.push(newCafe);
-                    // add each product to localStorage with key = id
+                    // add it to localStorage with key = id
                     localStorage.setItem(`${cafe.id}`, JSON.stringify(newCafe))
                 }
             }
@@ -120,6 +122,7 @@ const updateCart = (cart) =>
     xButtonEvent()
 }
 
+////////////////// Functions to remove an item cart /////////////////////
 // Function to remove an element from array by ID
 const removeItem = (array, id) => 
 {
@@ -149,9 +152,9 @@ const xButtonEvent = () =>
     }
 }
 
-let inputFilter = document.querySelector("#productFilter");
 
-// Search Filter
+
+///////////////////// Search Filter /////////////////////
 const searchProd = () => 
 {
     // save the input value
@@ -173,7 +176,8 @@ const searchProd = () =>
 }
 inputFilter.addEventListener("input", searchProd)
 
-// Return cart values from LocalStorage
+
+////////////// Return cart values from LocalStorage ////////////////////
 const returnCartValues = () => 
 {
     if(localStorage.length) {
