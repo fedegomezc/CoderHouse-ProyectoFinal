@@ -1,5 +1,5 @@
 // Products cart
-const cart = [];
+let cart = [];
 
 // Select section #container node
 let container = document.querySelector('#container');
@@ -32,6 +32,7 @@ const loadProducts = (cafes) =>
     buttonEvent()
 }
 
+
 // buttons function - addToCart
 const buttonEvent = () => 
 {
@@ -52,6 +53,8 @@ const addToCart = (id) =>
             {
                 // it's already in the cart
                 found.quantity++;
+                localStorage.removeItem(`${id}`)
+                localStorage.setItem(`${found.id}`, JSON.stringify(found))
             }
             else
             {
@@ -68,6 +71,8 @@ const addToCart = (id) =>
                         quantity: 1
                     }
                     cart.push(newCafe);
+                    // add each product to localStorage with key = id
+                    localStorage.setItem(`${cafe.id}`, JSON.stringify(newCafe))
                 }
             }
     updateCart(cart);
@@ -130,6 +135,7 @@ const removeItem = (array, id) =>
 const removeItemFromCart = (id) => 
 {
     let newCart = removeItem(cart, id)
+    localStorage.removeItem(`${id}`)
     updateCart(newCart)
 }
 // x buttons function - removeItem from cart
@@ -167,4 +173,19 @@ const searchProd = () =>
 }
 inputFilter.addEventListener("input", searchProd)
 
+// Return cart values from LocalStorage
+const returnCartValues = () => 
+{
+    if(localStorage.length) {
+        cart = []
+        for (let i = 0; i < localStorage.length; i++) {
+            let key = localStorage.key(i)
+            value = JSON.parse(localStorage.getItem(key))
+            cart.push(value)
+        }
+        updateCart(cart)
+    }
+}
+
 loadProducts(cafes);
+returnCartValues()
