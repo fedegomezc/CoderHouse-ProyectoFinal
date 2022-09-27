@@ -103,8 +103,9 @@ const updateCart = (cart) =>
         div.innerHTML += `
             <div class="cart-item">
                 <h4>${product.name}</h4>
-                <h4>$ ${product.price}</h4>
+                <h4>Precio: $ ${product.price}</h4>
                 <h4>Cantidad: ${product.quantity}</h4>
+                <h4>Subtotal: $ ${product.price * product.quantity}</h4>
                 <button class="buttonX" id="${product.id}">X</button>
             </div>
         `;

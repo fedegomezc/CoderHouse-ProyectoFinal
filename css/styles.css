@@ -7,7 +7,7 @@
 }
 
 body{
-    background-color: rgba(12, 12, 12, 1);
+    background-color: rgba(229, 226, 226, 0.911);
 }
 
 .header{
@@ -16,14 +16,46 @@ body{
     min-width: 350px;
     justify-content: center;
     align-items: flex-start;
-    padding: 20px;
-    background-color: rgba(63, 47, 33, 1);
+    padding: 50px;
+    background-color: rgba(229, 226, 226, 0.911);
+    white-space: nowrap;
 }
 
-.header h1{
-    color: rgba(140, 112, 88, 1);
-    font-family: 'Roboto', sans-serif;
-}
+.loader {
+    position: relative;
+  }
+  
+  .loader span {
+    position: absolute;
+    color: rgb(212, 207, 204);
+    transform: translate(-50%, -50%);
+    font-size: 45px;
+    letter-spacing: 1px;
+    font-family: 'Roboto',sans-serif;
+  }
+  
+  .loader span:nth-child(1) {
+    color: transparent;
+    -webkit-text-stroke: 0.3px rgb(56, 48, 41);
+  }
+  
+  .loader span:nth-child(2) {
+    color: rgb(54, 35, 19);
+    -webkit-text-stroke: 1px rgb(54, 35, 19);
+    animation: uiverse723 3s ease-in-out infinite;
+  }
+  
+  @keyframes uiverse723 {
+    0%, 100% {
+      clip-path: polygon(0% 45%, 15% 44%, 32% 50%, 
+       54% 60%, 70% 61%, 84% 59%, 100% 52%, 100% 100%, 0% 100%);
+    }
+  
+    50% {
+      clip-path: polygon(0% 60%, 16% 65%, 34% 66%, 
+       51% 62%, 67% 50%, 84% 45%, 100% 46%, 100% 100%, 0% 100%);
+    }
+  }
 
 div .Search {
     font-family: 'Roboto', sans-serif;
@@ -72,24 +104,38 @@ section{
 }
 
 .card .button{
-    width: 80%;
-    border: none;
-    padding: 0.7em;
-    background-color: rgba(216, 204, 197, 1);
-    color: rgba(12, 12, 12, 1);
-    font-family: 'Roboto',sans-serif;
-    margin: auto;
-    display: flex;
+    position: relative;
+    display: inline-block;
+    margin: 15px;
+    padding: 15px 30px;
     text-align: center;
-    justify-content: center;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: rgb(212, 159, 116);
+    background: transparent;
+    cursor: pointer;
+    transition: ease-out 0.5s;
+    border: 2px solid rgba(212, 159, 116);
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 0 rgba(212, 159, 116);
 }
+
+.card .button:hover{
+    color: rgba(63, 47, 33, 1);
+    box-shadow: inset 0 -100px 0 0 rgba(212, 159, 116);
+}
+
+.card .button:active {
+    transform: scale(0.9);
+  }
 
 #cart{
     height: auto;
     width: 100%;
     max-width: 1240px;
     margin: 0px auto;
-    color: rgba(216, 204, 197, 1);
+    color: rgba(63, 47, 33, 1);
 }
 
 #cart #cartContainer{
@@ -106,7 +152,7 @@ section{
 }
 
 #cart #cartContainer .cart-item{
-    background-color:rgba(63, 47, 33, 1);
+    background-color:rgb(143, 110, 83);
     width: 100%;
     margin: 5px 0px;
     display: flex;
@@ -121,8 +167,27 @@ section{
 
 .cart-item .buttonX {
     padding: 0.3em;
-    background-color: rgba(216, 204, 197, 1);
+    background-color: rgba(212, 159, 116);
     color: rgba(12, 12, 12, 1);
     font-family: 'Roboto',sans-serif;
 }
+
+.input {
+    border: 3px solid rgba(170, 146, 127, 0.836);
+    border-radius: 20px;
+    background-image: linear-gradient(120deg,#3b312c,#705d4e);
+    color: rgb(170, 150, 127);
+    cursor: pointer;
+    padding: 7px 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    transition: all 1s;
+    max-width: 170px;
+    margin-top: 10px;
+    margin-left: 15px;
+   }
+   
+   .input:focus {
+    outline-color: rgb(170, 144, 127);
+   }
 
