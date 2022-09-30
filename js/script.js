@@ -15,6 +15,8 @@ const loadProducts = (cafes) =>
     // Looping Products array
     for (const cafe of cafes) 
     {
+        // Destructuring assignment from object
+        let {id, name, price, description, image} = cafe
         // Create 'div' card
         let div = document.createElement('div');
         // set attribute for css style
@@ -22,10 +24,10 @@ const loadProducts = (cafes) =>
         // Create dynamic HTML content  
         div.innerHTML = 
         `
-            <img src="${cafe.image}" alt="${cafe.description}">
-            <h3>$${cafe.price}</h3>
-            <h4>${cafe.name}</h4>
-            <button class="button" id="${cafe.id}">Agregar al carrito</button>
+            <img src="${image}" alt="${description}">
+            <h3>$${price}</h3>
+            <h4>${name}</h4>
+            <button class="button" id="${id}">Agregar al carrito</button>
         `;
         // Add 'div' to container section
         container.appendChild(div);
@@ -48,35 +50,40 @@ const buttonEvent = () =>
 // Add products to cart array and add 'quantity' value
 const addToCart = (id) => 
 {
-    // If the product is already exist in the cart, add 1 to the quantity
+    ///////////// local functions ///////////
+    const addQuantity = (found) => {
+        // Product is already in the cart
+        found.quantity++;
+        // localStorage value is replaced
+        localStorage.removeItem(`${id}`)
+        localStorage.setItem(`${found.id}`, JSON.stringify(found))
+    }
+
+    const saveNewItem = (cafe) => {
+        let newCafe = {
+            id:cafe.id,
+            name: cafe.name,
+            price: cafe.price,
+            description: cafe.description,
+            image: cafe.image,
+            quantity: 1
+        }
+        cart.push(newCafe);
+        // add it to localStorage with key = id
+        localStorage.setItem(`${cafe.id}`, JSON.stringify(newCafe))
+    }
+
+    const addNewItem = () => { 
+         let cafe = cafes.find(element => element.id == id);
+         cafe && saveNewItem(cafe)  
+    }
+
+    //////////// id application /////////////
+    // If the product is already exist in the cart, add 1 to the quantity 
+    // else add the product to cart
     let found = cart.find(element => element.id == id);
-            if(found)
-            {
-                // it's already in the cart
-                found.quantity++;
-                // localStorage value is replaced
-                localStorage.removeItem(`${id}`)
-                localStorage.setItem(`${found.id}`, JSON.stringify(found))
-            }
-            else
-            {
-                // if it isn't in the cart, add it 
-                let cafe = cafes.find(element => element.id == id);
-                if(cafe)
-                {
-                    let newCafe = {
-                        id:cafe.id,
-                        name: cafe.name,
-                        price: cafe.price,
-                        description: cafe.description,
-                        image: cafe.image,
-                        quantity: 1
-                    }
-                    cart.push(newCafe);
-                    // add it to localStorage with key = id
-                    localStorage.setItem(`${cafe.id}`, JSON.stringify(newCafe))
-                }
-            }
+            found ? addQuantity(found) : addNewItem()
+
     updateCart(cart);
 }
 
@@ -86,10 +93,7 @@ const updateCart = (cart) =>
     // Get the child element node
     let container = document.getElementById("cartContainer");
     // if the container exist it is removed
-    if(container)
-    {
-        container.parentNode.removeChild(container);
-    }
+    container && container.parentNode.removeChild(container);
     // create element for new products added in cartContainer 
     let div = document.createElement('div');
     div.setAttribute('id','cartContainer');
@@ -100,17 +104,20 @@ const updateCart = (cart) =>
     // add products
     for (const product of cart)
     {
+        // Destructuring assignment from object
+        let {id, name, price, quantity} = product
+
         div.innerHTML += `
             <div class="cart-item">
-                <h4>${product.name}</h4>
-                <h4>Precio: $ ${product.price}</h4>
-                <h4>Cantidad: ${product.quantity}</h4>
-                <h4>Subtotal: $ ${product.price * product.quantity}</h4>
-                <button class="buttonX" id="${product.id}">X</button>
+                <h4>${name}</h4>
+                <h4>Precio: $ ${price}</h4>
+                <h4>Cantidad: ${quantity}</h4>
+                <h4>Subtotal: $ ${price * quantity}</h4>
+                <button class="buttonX" id="${id}">X</button>
             </div>
         `;
         // sum total price
-        total += product.price * product.quantity
+        total += price * quantity
     }
     // add total section
     div.innerHTML += `
@@ -154,7 +161,6 @@ const xButtonEvent = () =>
 }
 
 
-
 ///////////////////// Search Filter /////////////////////
 const searchProd = () => 
 {
@@ -164,12 +170,7 @@ const searchProd = () =>
     if (parameter !== "") {
         // save the array with the match objects
         const result = cafes.filter(cafe => cafe.name.includes(parameter))
-        if(result.length === 0) {
-            container.innerHTML = ""
-        } else {
-            container.innerHTML = ""
-            loadProducts(result)
-        }
+        result.length === 0 ? (container.innerHTML = "") : (container.innerHTML = "", loadProducts(result));
     } else {
         container.innerHTML = ""
         loadProducts(cafes)
@@ -179,18 +180,18 @@ inputFilter.addEventListener("input", searchProd)
 
 
 ////////////// Return cart values from LocalStorage ////////////////////
-const returnCartValues = () => 
-{
-    if(localStorage.length) {
-        cart = []
-        for (let i = 0; i < localStorage.length; i++) {
-            let key = localStorage.key(i)
-            value = JSON.parse(localStorage.getItem(key))
-            cart.push(value)
-        }
-        updateCart(cart)
+
+const valuesFromLS = () => {
+    cart = []
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i)
+        value = JSON.parse(localStorage.getItem(key))
+        cart.push(value)
     }
+    updateCart(cart)
 }
+// If localStorage has items return values
+const returnCartValues = () => localStorage.length && valuesFromLS()
 
 loadProducts(cafes);
 returnCartValues()
