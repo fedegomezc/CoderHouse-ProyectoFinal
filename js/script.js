@@ -45,6 +45,22 @@ const buttonEvent = () =>
     for (const button of buttons) {
         button.addEventListener('click', ()=> addToCart(button.id))
     }
+    for (const button of buttons) {
+        button.addEventListener('click', () => {
+ 
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Producto agregado al carrito',
+                showConfirmButton: false,
+                timer: 1500,
+                toast: true,
+                color: '#f7f7f7e8',
+                iconColor: '#3f2f21',
+                background: '#d49f74'
+            })
+        })        
+    }
 }
 
 // Add products to cart array and add 'quantity' value
