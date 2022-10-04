@@ -129,7 +129,9 @@ const updateCart = (cart) =>
                 <h4>Precio: $ ${price}</h4>
                 <h4>Cantidad: ${quantity}</h4>
                 <h4>Subtotal: $ ${price * quantity}</h4>
-                <button class="buttonX" id="${id}">X</button>
+                <button class="buttonAdd" id="${id}">+</button>
+                <button class="buttonRemove" id="${id}">-</button>
+                <button class="buttonX" id="${id}">Eliminar</button>
             </div>
         `;
         // sum total price
@@ -142,8 +144,10 @@ const updateCart = (cart) =>
     `;
     // add node to cartContainer
     cartContainer.appendChild(div);
-    // xButton function
+    // Buttons function
     xButtonEvent()
+    addQuantityButton()
+    subtractQuantityButton()
 }
 
 ////////////////// Functions to remove an item cart /////////////////////
@@ -176,6 +180,47 @@ const xButtonEvent = () =>
     }
 }
 
+// add 1 from quantity
+const addQuantity = (id) =>
+{
+    const addOneItem = (obj) => {
+        objID.quantity++;
+        localStorage.removeItem(`${id}`);
+        localStorage.setItem(`${obj.id}`, JSON.stringify(obj));
+        updateCart(cart); 
+    }
+    const objID = cart.find((obj) => obj.id == id);
+        objID.quantity < 10 && addOneItem(objID);  
+}
+const addQuantityButton = () =>
+{
+    let buttonAdd = document.querySelectorAll('.buttonAdd');
+    // Loop buttons and add 1 to quantity when the 'click' event occurs
+    for (const button of buttonAdd) {
+        button.addEventListener('click', ()=> addQuantity(button.id))
+    }
+}
+
+// remove 1 from quantity
+const subtractQuantity = (id) =>
+{
+    const removeOneItem = (obj) => {
+        objID.quantity--;
+        localStorage.removeItem(`${id}`);
+        localStorage.setItem(`${obj.id}`, JSON.stringify(obj));
+        updateCart(cart);
+    }
+    const objID = cart.find((obj) => obj.id == id);
+        objID.quantity > 1 && removeOneItem(objID);       
+}
+const subtractQuantityButton = () =>
+{
+    let buttonRemove = document.querySelectorAll('.buttonRemove');
+    // Loop buttons and remove 1 to quantity when the 'click' event occurs
+    for (const button of buttonRemove) {
+        button.addEventListener('click', ()=> subtractQuantity(button.id))
+    }
+}
 
 ///////////////////// Search Filter /////////////////////
 const searchProd = () => 
