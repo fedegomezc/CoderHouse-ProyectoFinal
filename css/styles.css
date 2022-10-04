@@ -146,7 +146,7 @@ section{
 
 #cart #cartContainer h2{
     width: 100%;
-    text-align:center;
+    text-align: center;
     font-family: 'Roboto',sans-serif;
     margin-bottom: 1em;
 }
@@ -159,17 +159,20 @@ section{
     justify-content: space-between;
     font-family: 'Roboto', sans-serif;
     padding: 1em;
+    align-content: center;
 }
 #cart #cartContainer .cart-item h4{
     width: 250px;
-    text-align:center;
+    align-content: center;
 }
 
-.cart-item .buttonX {
+.cart-item .buttonX, .buttonAdd, .buttonRemove {
     padding: 0.3em;
     background-color: rgba(212, 159, 116);
     color: rgba(12, 12, 12, 1);
     font-family: 'Roboto',sans-serif;
+    margin-left: 0.2em;
+    padding: 0.5em;
 }
 
 .input {
