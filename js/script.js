@@ -1,3 +1,4 @@
+let cafes = [];
 let cart = [];
 let container = document.querySelector('#container');
 let cartContainer = document.querySelector('#cart');
@@ -23,6 +24,23 @@ const loadProducts = (cafes) =>
     }
     buttonEvent()
 }
+
+const getData = async () => 
+{
+    try
+    {
+        const response = await fetch('/js/db.json');
+        const data = await response.json();
+        loadProducts(data);
+        cafes.push(...data);
+    }
+    catch(e)
+    {
+        console.log(e);
+    }
+}
+
+getData();
 
 // buttons function - addToCart
 const buttonEvent = () => 
@@ -218,5 +236,5 @@ const valuesFromLS = () => {
 // If localStorage has items return values
 const returnCartValues = () => localStorage.length && valuesFromLS()
 
-loadProducts(cafes);
+// loadProducts(cafes);
 returnCartValues()
