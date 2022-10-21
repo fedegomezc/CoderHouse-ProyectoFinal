@@ -80,6 +80,13 @@ const buttonEvent = () =>
     }
 }
 
+const setQuantityIcon = () =>
+{
+    let amount = document.querySelector('.cartAmount');
+    const total = cart.reduce((acc, item) => acc + item.quantity, 0);
+    amount.innerHTML = total;
+}
+
 // Add products to cart array and add 'quantity' value
 const addToCart = (id) => 
 {
@@ -113,6 +120,8 @@ const addToCart = (id) =>
     // else add the product to cart
     let found = cart.find(element => element.id == id);
             found ? addQuantity(found) : addNewItem()
+    
+    setQuantityIcon(cart);
 }
 
 const searchProd = () => 

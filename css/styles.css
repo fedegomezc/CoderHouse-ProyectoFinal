@@ -12,17 +12,43 @@ body{
 
 .header{
     display: flex;
-    width: 100%;
-    min-width: 350px;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 50px;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 30px 60px;
     background-color: rgba(229, 226, 226, 0.911);
     white-space: nowrap;
+    width: 100%;
+    min-width: 350px;
+}
+
+.cartIcon {
+  position: relative;
+  color: #e6e4e4e8;
+  background-color: #705d4e;
+  font-size: 30px;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+a:link, :visited, :hover, :active {
+  color:#e6e4e4e8;
+}
+
+.cartAmount{
+  position: absolute;
+  top: -12px;
+  right: -10px;
+  font-size: 16px;
+  background-color: #ff7300;
+  color: white;
+  padding: 3px;
+  border-radius: 3px;
 }
 
 .loader {
     position: relative;
+    padding-left: 90px;
+    padding-top: 10px;
   }
   
   .loader span {

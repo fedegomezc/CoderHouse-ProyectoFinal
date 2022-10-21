@@ -104,6 +104,7 @@ const checkoutButton = () =>
 {
     const btn = document.querySelector('#checkout');
     btn.addEventListener('click', ()=> {
+        localStorage.clear();
         Swal.fire({
             title: 'Compra finalizada',
             text: 'Gracias por confiar en nosotros!',
@@ -111,6 +112,11 @@ const checkoutButton = () =>
             imageWidth: 400,
             imageHeight: 266,
             imageAlt: 'cup coffe image',
+            confirmButtonText: 'Cerrar',
+          }).then((result) => {
+            if (result.isConfirmed) {
+                location.reload(true);
+            }
           })
     })
 }
