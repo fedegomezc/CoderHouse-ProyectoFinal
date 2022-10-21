@@ -46,6 +46,7 @@ const getData = async () =>
         const data = await response.json();
         loadProducts(data);
         cafes.push(...data);
+        setQuantityIcon();
     }
     catch(e)
     {

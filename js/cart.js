@@ -113,6 +113,7 @@ const checkoutButton = () =>
             imageHeight: 266,
             imageAlt: 'cup coffe image',
             confirmButtonText: 'Cerrar',
+            confirmButtonColor: '#5e4028',
           }).then((result) => {
             if (result.isConfirmed) {
                 location.reload(true);
