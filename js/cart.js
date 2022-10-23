@@ -116,7 +116,7 @@ const checkoutButton = () =>
             confirmButtonColor: '#5e4028',
           }).then((result) => {
             if (result.isConfirmed) {
-                location.reload(true);
+                location.replace('/index.html')
             }
           })
     })
