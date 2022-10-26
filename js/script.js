@@ -42,7 +42,7 @@ const getData = async () =>
 {
     try
     {
-        const response = await fetch('/js/db.json');
+        const response = await fetch('../js/db.json');
         const data = await response.json();
         loadProducts(data);
         cafes.push(...data);
