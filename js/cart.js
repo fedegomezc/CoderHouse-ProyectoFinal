@@ -29,14 +29,17 @@ const updateCart = (cart) =>
         total += price * quantity
     }
     div.innerHTML += `<h2>Total = $${total}</h2>`;
-    div.innerHTML += `<button class="button" id="checkout">Finalizar Compra</button>`;
+    div.innerHTML += `<button class="button" id="startBuy">INICIAR COMPRA</button>
+    <button class="button" id="returnToStore">SEGUIR COMPRANDO</button>
+    `;
 
     cartContainer.appendChild(div);
     
     xButtonEvent();
     addQuantityButton();
     subtractQuantityButton();
-    checkoutButton();
+    startBuy();
+    returnToStore();
 }
 
 // Function to remove an element from array by ID
@@ -53,6 +56,7 @@ const removeItemFromCart = (id) =>
     localStorage.removeItem(`${id}`)
     updateCart(newCart)
 }
+
 // x buttons Event - removeItem from cart
 const xButtonEvent = () => 
 {
@@ -100,14 +104,92 @@ const subtractQuantityButton = () =>
     }
 }
 
-const checkoutButton = () => 
+const startBuy = () => 
 {
-    const btn = document.querySelector('#checkout');
+    const btn = document.querySelector('#startBuy');
+    btn.addEventListener('click', ()=> purchaseForm())
+}
+
+const purchaseForm = () => {
+    let checkoutContainer = document.querySelector('#checkout');
+    
+    let div = document.createElement('div');
+    div.setAttribute('id','checkoutContainer');
+    div.innerHTML += `
+    <div class="mainscreen"> 
+        <div class="card">
+            <div class="leftside">
+                <img
+                    src="/images/cup-coffee-vertical-image.png"
+                    class="product"
+                    alt="coffee cup"
+                />
+            </div>
+            <div class="rightside">
+            <form action="">
+                <h1>Datos de contacto</h1>
+                <p>Nombre</p>
+                <input type="text" class="inputbox" name="nombre" value='Homero' required />
+                <p>Email</p>
+                <input type="email" class="inputbox" name="email" value='example@gmail.com' required />
+                <p>Teléfono</p>
+                <input type="tel" class="inputbox" name="phone" value="123-4567-8901" required />
+  
+                <h1>Entrega</h1>
+                <input type="radio" id="tienda" name="entrega" value="Retiro en tienda" required>
+                <label for="tienda">Retiro en tienda (gratis)</label>
+                <input type="radio" id="delivery" name="entrega" value="Delivery" checked>
+                <label for="delivery">Delivery ($350)</label><br><br>
+                <label id="hideDelivery" style="display:block">
+                    <p>Calle</p>
+                    <input type="text" class="inputbox" name="dirección" value='Av. Siempreviva' required />
+                    <p>Número</p>
+                    <input type="number" class="inputbox" name="dirección" value=742 required />
+                    <p>Piso/dpto</p>
+                    <input type="text" class="inputbox" name="dirección" placeholder='Ej: 1A' required />
+                </label>
+
+                <h1>Forma de pago</h1>
+                <input type="radio" id="efectivo" name="pago" value="Efectivo" checked required>
+                <label for="efectivo">Efectivo</label>
+                <input type="radio" id="debito" name="pago" value="Débito">
+                <label for="debito">Débito</label>
+                <input type="radio" id="credito" name="pago" value="Crédito">
+                <label for="credito">Crédito</label><br><br>
+                    <p></p>
+                    <button type="submit" class="button" id="checkoutButton">CheckOut</button>
+            </form>
+            </div>
+        </div>
+    </div>
+    `;
+    checkoutContainer.appendChild(div);
+
+    let radioBtns = document.querySelectorAll("input[name='entrega']");
+
+    let findSelected = ()=> {
+        let selected = document.querySelector("input[name='entrega']:checked").value;
+        if (selected === 'Retiro en tienda') {
+            document.getElementById('hideDelivery').style.display = "none";
+        } else {
+            document.getElementById('hideDelivery').style.display = "block";
+        }
+    }
+
+    radioBtns.forEach(radioBtn => {
+        radioBtn.addEventListener("change", findSelected);
+    })
+
+    checkoutButton();
+}
+
+const checkoutButton = () => {
+    const btn = document.querySelector('#checkoutButton');
     btn.addEventListener('click', ()=> {
         localStorage.clear();
         Swal.fire({
-            title: 'Compra finalizada',
-            text: 'Gracias por confiar en nosotros!',
+            title: 'Gracias por confiar en nosotros!',
+            text: 'Se enviará link de pago al mail en el caso de pago con débito/crédito',
             imageUrl: 'images/thanks-brown-cup-coffee.jpg',
             imageWidth: 400,
             imageHeight: 266,
@@ -120,6 +202,11 @@ const checkoutButton = () =>
             }
           })
     })
+}
+
+const returnToStore = () => {
+    const btn = document.querySelector('#returnToStore');
+    btn.addEventListener('click', ()=> location.replace('/index.html'))
 }
 
 // Return cart values from LocalStorage
