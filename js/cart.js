@@ -1,3 +1,5 @@
+const clients = [];
+
 // every time a product is added the cart is updated
 const updateCart = (cart) =>
 {
@@ -126,7 +128,7 @@ const purchaseForm = () => {
                 />
             </div>
             <div class="rightside">
-            <form action="">
+            <form id='finalForm'>
                 <h1>Datos de contacto</h1>
                 <p>Nombre</p>
                 <input type="text" class="inputbox" name="nombre" value='Homero' required />
@@ -142,11 +144,11 @@ const purchaseForm = () => {
                 <label for="delivery">Delivery ($350)</label><br><br>
                 <label id="hideDelivery" style="display:block">
                     <p>Calle</p>
-                    <input type="text" class="inputbox" name="dirección" value='Av. Siempreviva' required />
+                    <input type="text" class="inputbox" name="street" value='Av. Siempreviva' required />
                     <p>Número</p>
-                    <input type="number" class="inputbox" name="dirección" value=742 required />
+                    <input type="number" class="inputbox" name="num" value=742 required />
                     <p>Piso/dpto</p>
-                    <input type="text" class="inputbox" name="dirección" placeholder='Ej: 1A' required />
+                    <input type="text" class="inputbox" name="floor" placeholder='Ej: 1A' />
                 </label>
 
                 <h1>Forma de pago</h1>
@@ -184,9 +186,24 @@ const purchaseForm = () => {
 }
 
 const checkoutButton = () => {
+
     const btn = document.querySelector('#checkoutButton');
     btn.addEventListener('click', ()=> {
-        localStorage.clear();
+        const form = document.getElementById('finalForm').elements;
+        // form values are saved
+        const name = form['nombre'].value;
+        const email = form['email'].value;
+        const phone = form['phone'].value;
+        const street = form['street'].value;
+        const num = form['num'].value;
+        const floor = form['floor'].value;
+        clients.push(new ClientData(name, email, phone, street, num, floor))
+        localStorage.setItem('Clients', JSON.stringify(clients))
+        debugger
+        cart.forEach((product)=>{
+            localStorage.removeItem(product.id);
+        })
+
         Swal.fire({
             title: 'Gracias por confiar en nosotros!',
             text: 'Se enviará link de pago al mail en el caso de pago con débito/crédito',
@@ -214,10 +231,12 @@ const valuesFromLS = () => {
     cart = []
     for (let i = 0; i < localStorage.length; i++) {
         let key = localStorage.key(i)
-        value = JSON.parse(localStorage.getItem(key))
-        cart.push(value)
+        if(!isNaN(key)){
+            value = JSON.parse(localStorage.getItem(key))
+            cart.push(value)
+        }      
     }
-    updateCart(cart)
+    cart.length && updateCart(cart)
 }
 // If localStorage has items return values
 const returnCartValues = () => localStorage.length && valuesFromLS()
