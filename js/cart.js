@@ -1,19 +1,17 @@
 // every time a product is added the cart is updated
-const updateCart = (cart) =>
-{
+const updateCart = (cart) => {
     let cartContainer = document.querySelector('#cart');
     let container = document.getElementById("cartContainer");
     // if the container exist it is removed
     container && container.parentNode.removeChild(container);
     // create element for new products added in cartContainer 
     let div = document.createElement('div');
-    div.setAttribute('id','cartContainer');
+    div.setAttribute('id', 'cartContainer');
     div.innerHTML += ` <h2>Carrito de compras</h2>`;
     // variable to save total price of products
     let total = 0;
-    for (const product of cart)
-    {
-        let {id, name, price, quantity} = product
+    for (const product of cart) {
+        let { id, name, price, quantity } = product
 
         div.innerHTML += `
             <div class="cart-item">
@@ -29,60 +27,56 @@ const updateCart = (cart) =>
         total += price * quantity
     }
     div.innerHTML += `<h2>Total = $${total}</h2>`;
-    div.innerHTML += `<button class="button" id="checkout">Finalizar Compra</button>`;
+    div.innerHTML += `<button class="button" id="checkout">Finalizar Compra</button>
+    <button class="button" id="returnToStore">SEGUIR COMPRANDO</button>`;
 
     cartContainer.appendChild(div);
-    
+
     xButtonEvent();
     addQuantityButton();
     subtractQuantityButton();
     checkoutButton();
+    returnToStore();
 }
 
 // Function to remove an element from array by ID
-const removeItem = (array, id) => 
-{
+const removeItem = (array, id) => {
     const objIndex = array.findIndex((obj) => obj.id == id);
     array.splice(objIndex, 1);
-    return array; 
+    return array;
 }
 
-const removeItemFromCart = (id) => 
-{
+const removeItemFromCart = (id) => {
     let newCart = removeItem(cart, id)
     localStorage.removeItem(`${id}`)
     updateCart(newCart)
 }
 // x buttons Event - removeItem from cart
-const xButtonEvent = () => 
-{
+const xButtonEvent = () => {
     let buttonx = document.querySelectorAll('.buttonX');
     for (const button of buttonx) {
-        button.addEventListener('click', ()=> removeItemFromCart(button.id))
+        button.addEventListener('click', () => removeItemFromCart(button.id))
     }
 }
 
-const addQuantity = (id) =>
-{
+const addQuantity = (id) => {
     const addOneItem = (obj) => {
         objID.quantity++;
         localStorage.removeItem(`${id}`);
         localStorage.setItem(`${obj.id}`, JSON.stringify(obj));
-        updateCart(cart); 
+        updateCart(cart);
     }
     const objID = cart.find((obj) => obj.id == id);
-        objID.quantity < 10 && addOneItem(objID);  
+    objID.quantity < 10 && addOneItem(objID);
 }
-const addQuantityButton = () =>
-{
+const addQuantityButton = () => {
     let buttonAdd = document.querySelectorAll('.buttonAdd');
     for (const button of buttonAdd) {
-        button.addEventListener('click', ()=> addQuantity(button.id))
+        button.addEventListener('click', () => addQuantity(button.id))
     }
 }
 
-const subtractQuantity = (id) =>
-{
+const subtractQuantity = (id) => {
     const removeOneItem = (obj) => {
         objID.quantity--;
         localStorage.removeItem(`${id}`);
@@ -90,20 +84,18 @@ const subtractQuantity = (id) =>
         updateCart(cart);
     }
     const objID = cart.find((obj) => obj.id == id);
-        objID.quantity > 1 && removeOneItem(objID);       
+    objID.quantity > 1 && removeOneItem(objID);
 }
-const subtractQuantityButton = () =>
-{
+const subtractQuantityButton = () => {
     let buttonRemove = document.querySelectorAll('.buttonRemove');
     for (const button of buttonRemove) {
-        button.addEventListener('click', ()=> subtractQuantity(button.id))
+        button.addEventListener('click', () => subtractQuantity(button.id))
     }
 }
 
-const checkoutButton = () => 
-{
+const checkoutButton = () => {
     const btn = document.querySelector('#checkout');
-    btn.addEventListener('click', ()=> {
+    btn.addEventListener('click', () => {
         localStorage.clear();
         Swal.fire({
             title: 'Compra finalizada',
@@ -114,12 +106,17 @@ const checkoutButton = () =>
             imageAlt: 'cup coffe image',
             confirmButtonText: 'Cerrar',
             confirmButtonColor: '#5e4028',
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
                 location.replace('/index.html')
             }
-          })
+        })
     })
+}
+
+const returnToStore = () => {
+    const btn = document.querySelector('#returnToStore');
+    btn.addEventListener('click', () => location.replace('/index.html'))
 }
 
 // Return cart values from LocalStorage
