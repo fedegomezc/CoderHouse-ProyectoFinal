@@ -8,8 +8,10 @@ const valuesFromLS = () => {
     cart = []
     for (let i = 0; i < localStorage.length; i++) {
         let key = localStorage.key(i)
-        value = JSON.parse(localStorage.getItem(key))
-        cart.push(value)
+        if (!isNaN(key)) {
+            value = JSON.parse(localStorage.getItem(key))
+            cart.push(value)
+        }
     }
 }
 // If localStorage has items return values
