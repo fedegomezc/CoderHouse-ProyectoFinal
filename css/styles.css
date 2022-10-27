@@ -1,24 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
 
 * {
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-    background-color: #e5e2e2e8;
+body {
+  background-color: #e5e2e2e8;
 }
 
-.header{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 30px 60px;
-    background-color: rgba(229, 226, 226, 0.911);
-    white-space: nowrap;
-    width: 100%;
-    min-width: 350px;
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 30px 60px;
+  background-color: rgba(229, 226, 226, 0.911);
+  white-space: nowrap;
+  width: 100%;
+  min-width: 350px;
 }
 
 .cartIcon {
@@ -30,11 +30,14 @@ body{
   border-radius: 4px;
 }
 
-a:link, :visited, :hover, :active {
-  color:#e6e4e4e8;
+a:link,
+:visited,
+:hover,
+:active {
+  color: #e6e4e4e8;
 }
 
-.cartAmount{
+.cartAmount {
   position: absolute;
   top: -12px;
   right: -10px;
@@ -46,132 +49,136 @@ a:link, :visited, :hover, :active {
 }
 
 .loader {
-    position: relative;
-    padding-left: 90px;
-    padding-top: 10px;
+  position: relative;
+  padding-left: 90px;
+  padding-top: 10px;
+}
+
+.loader span {
+  position: absolute;
+  color: rgb(212, 207, 204);
+  transform: translate(-50%, -50%);
+  font-size: 45px;
+  letter-spacing: 1px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.loader span:nth-child(1) {
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(56, 48, 41);
+}
+
+.loader span:nth-child(2) {
+  color: rgb(54, 35, 19);
+  -webkit-text-stroke: 1px rgb(54, 35, 19);
+  animation: uiverse723 3s ease-in-out infinite;
+}
+
+@keyframes uiverse723 {
+
+  0%,
+  100% {
+    clip-path: polygon(0% 45%, 15% 44%, 32% 50%,
+        54% 60%, 70% 61%, 84% 59%, 100% 52%, 100% 100%, 0% 100%);
   }
-  
-  .loader span {
-    position: absolute;
-    color: rgb(212, 207, 204);
-    transform: translate(-50%, -50%);
-    font-size: 45px;
-    letter-spacing: 1px;
-    font-family: 'Roboto',sans-serif;
+
+  50% {
+    clip-path: polygon(0% 60%, 16% 65%, 34% 66%,
+        51% 62%, 67% 50%, 84% 45%, 100% 46%, 100% 100%, 0% 100%);
   }
-  
-  .loader span:nth-child(1) {
-    color: transparent;
-    -webkit-text-stroke: 1px rgb(56, 48, 41);
-  }
-  
-  .loader span:nth-child(2) {
-    color: rgb(54, 35, 19);
-    -webkit-text-stroke: 1px rgb(54, 35, 19);
-    animation: uiverse723 3s ease-in-out infinite;
-  }
-  
-  @keyframes uiverse723 {
-    0%, 100% {
-      clip-path: polygon(0% 45%, 15% 44%, 32% 50%, 
-       54% 60%, 70% 61%, 84% 59%, 100% 52%, 100% 100%, 0% 100%);
-    }
-  
-    50% {
-      clip-path: polygon(0% 60%, 16% 65%, 34% 66%, 
-       51% 62%, 67% 50%, 84% 45%, 100% 46%, 100% 100%, 0% 100%);
-    }
-  }
+}
 
 div .Search {
-    font-family: 'Roboto', sans-serif;
-    font-size: large;    
+  font-family: 'Roboto', sans-serif;
+  font-size: large;
 }
 
-section{
-    display: flex;
-    width: 100%;
-    min-width: 350px;
-    justify-content: center;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    padding: 3em;
+section {
+  display: flex;
+  width: 100%;
+  min-width: 350px;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 3em;
 }
 
-.card{
-    width: 250px;
-    height: auto;
-    margin: 15px;
-    padding: 0.7em;
-    border-radius: 7px;
-    transition: all 0.25s cubic-bezier(0.645,0.045,0.355,1);
-    background-color: rgba(63, 47, 33, 1);
-    font-family: 'Roboto',sans-serif;
-}
-.card h3{
-    margin: 0.5em 0em;
-    color: rgba(216, 204, 197, 1);
-    font-weight: bold;
-}
-.card h4{
-    font-size: 0.875em;
-    margin: 0.5em 0em;
-    color: rgba(216, 204, 197, 1);
-    font-weight: normal;
+.card {
+  width: 250px;
+  height: auto;
+  margin: 15px;
+  padding: 0.7em;
+  border-radius: 7px;
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  background-color: rgba(63, 47, 33, 1);
+  font-family: 'Roboto', sans-serif;
 }
 
-.card:hover{
-    transform: translateY(-7px);
-    box-shadow: 1.25px 1.25px 10px rgba(191, 167, 147, 1);
+.card h3 {
+  margin: 0.5em 0em;
+  color: rgba(216, 204, 197, 1);
+  font-weight: bold;
 }
 
-.card img{
-    width: 100%;
+.card h4 {
+  font-size: 0.875em;
+  margin: 0.5em 0em;
+  color: rgba(216, 204, 197, 1);
+  font-weight: normal;
 }
 
-.card .button{
-    position: relative;
-    display: inline-block;
-    margin: 15px;
-    padding: 15px 30px;
-    text-align: center;
-    font-size: 12px;
-    letter-spacing: 1px;
-    text-decoration: none;
-    color: rgb(212, 159, 116);
-    background: transparent;
-    cursor: pointer;
-    transition: ease-out 0.5s;
-    border: 2px solid #d49f74;
-    border-radius: 10px;
-    box-shadow: inset 0 0 0 0 rgba(212, 159, 116);
+.card:hover {
+  transform: translateY(-7px);
+  box-shadow: 1.25px 1.25px 10px rgba(191, 167, 147, 1);
 }
 
-.card .button:hover{
-    color: rgba(63, 47, 33, 1);
-    box-shadow: inset 0 -100px 0 0 rgba(212, 159, 116);
+.card img {
+  width: 100%;
+}
+
+.card .button {
+  position: relative;
+  display: inline-block;
+  margin: 15px;
+  padding: 15px 30px;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: rgb(212, 159, 116);
+  background: transparent;
+  cursor: pointer;
+  transition: ease-out 0.5s;
+  border: 2px solid #d49f74;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 0 rgba(212, 159, 116);
+}
+
+.card .button:hover {
+  color: rgba(63, 47, 33, 1);
+  box-shadow: inset 0 -100px 0 0 rgba(212, 159, 116);
 }
 
 .card .button:active {
-    transform: scale(0.9);
-  }
+  transform: scale(0.9);
+}
 
 
 .input {
-    border: 3px solid rgba(170, 146, 127, 0.836);
-    border-radius: 20px;
-    background-image: linear-gradient(120deg,#3b312c,#705d4e);
-    color: rgb(170, 150, 127);
-    cursor: pointer;
-    padding: 7px 12px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 17px;
-    transition: all 1s;
-    max-width: 170px;
-    margin-top: 10px;
-    margin-left: 15px;
-   }
-   
-   .input:focus {
-    outline-color: rgb(170, 144, 127);
-   }
+  border: 3px solid rgba(170, 146, 127, 0.836);
+  border-radius: 20px;
+  background-image: linear-gradient(120deg, #3b312c, #705d4e);
+  color: rgb(170, 150, 127);
+  cursor: pointer;
+  padding: 7px 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  transition: all 1s;
+  max-width: 170px;
+  margin-top: 10px;
+  margin-left: 15px;
+}
+
+.input:focus {
+  outline-color: rgb(170, 144, 127);
+}

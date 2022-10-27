@@ -1,5 +1,5 @@
 class ClientData {
-    constructor (name, email, phone, street, num, floor) {
+    constructor(name, email, phone, street, num, floor) {
         this.nombre = name;
         this.email = email;
         this.telefono = phone;

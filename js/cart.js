@@ -1,21 +1,19 @@
-const clients = [];
+const clients = JSON.parse(localStorage.getItem('Clients')) || [];
 
 // every time a product is added the cart is updated
-const updateCart = (cart) =>
-{
+const updateCart = (cart) => {
     let cartContainer = document.querySelector('#cart');
     let container = document.getElementById("cartContainer");
     // if the container exist it is removed
     container && container.parentNode.removeChild(container);
     // create element for new products added in cartContainer 
     let div = document.createElement('div');
-    div.setAttribute('id','cartContainer');
+    div.setAttribute('id', 'cartContainer');
     div.innerHTML += ` <h2>Carrito de compras</h2>`;
     // variable to save total price of products
     let total = 0;
-    for (const product of cart)
-    {
-        let {id, name, price, quantity} = product
+    for (const product of cart) {
+        let { id, name, price, quantity } = product
 
         div.innerHTML += `
             <div class="cart-item">
@@ -36,7 +34,7 @@ const updateCart = (cart) =>
     `;
 
     cartContainer.appendChild(div);
-    
+
     xButtonEvent();
     addQuantityButton();
     subtractQuantityButton();
@@ -45,50 +43,44 @@ const updateCart = (cart) =>
 }
 
 // Function to remove an element from array by ID
-const removeItem = (array, id) => 
-{
+const removeItem = (array, id) => {
     const objIndex = array.findIndex((obj) => obj.id == id);
     array.splice(objIndex, 1);
-    return array; 
+    return array;
 }
 
-const removeItemFromCart = (id) => 
-{
+const removeItemFromCart = (id) => {
     let newCart = removeItem(cart, id)
     localStorage.removeItem(`${id}`)
     updateCart(newCart)
 }
 
 // x buttons Event - removeItem from cart
-const xButtonEvent = () => 
-{
+const xButtonEvent = () => {
     let buttonx = document.querySelectorAll('.buttonX');
     for (const button of buttonx) {
-        button.addEventListener('click', ()=> removeItemFromCart(button.id))
+        button.addEventListener('click', () => removeItemFromCart(button.id))
     }
 }
 
-const addQuantity = (id) =>
-{
+const addQuantity = (id) => {
     const addOneItem = (obj) => {
         objID.quantity++;
         localStorage.removeItem(`${id}`);
         localStorage.setItem(`${obj.id}`, JSON.stringify(obj));
-        updateCart(cart); 
+        updateCart(cart);
     }
     const objID = cart.find((obj) => obj.id == id);
-        objID.quantity < 10 && addOneItem(objID);  
+    objID.quantity < 10 && addOneItem(objID);
 }
-const addQuantityButton = () =>
-{
+const addQuantityButton = () => {
     let buttonAdd = document.querySelectorAll('.buttonAdd');
     for (const button of buttonAdd) {
-        button.addEventListener('click', ()=> addQuantity(button.id))
+        button.addEventListener('click', () => addQuantity(button.id))
     }
 }
 
-const subtractQuantity = (id) =>
-{
+const subtractQuantity = (id) => {
     const removeOneItem = (obj) => {
         objID.quantity--;
         localStorage.removeItem(`${id}`);
@@ -96,27 +88,25 @@ const subtractQuantity = (id) =>
         updateCart(cart);
     }
     const objID = cart.find((obj) => obj.id == id);
-        objID.quantity > 1 && removeOneItem(objID);       
+    objID.quantity > 1 && removeOneItem(objID);
 }
-const subtractQuantityButton = () =>
-{
+const subtractQuantityButton = () => {
     let buttonRemove = document.querySelectorAll('.buttonRemove');
     for (const button of buttonRemove) {
-        button.addEventListener('click', ()=> subtractQuantity(button.id))
+        button.addEventListener('click', () => subtractQuantity(button.id))
     }
 }
 
-const startBuy = () => 
-{
+const startBuy = () => {
     const btn = document.querySelector('#startBuy');
-    btn.addEventListener('click', ()=> purchaseForm())
+    btn.addEventListener('click', () => purchaseForm())
 }
 
 const purchaseForm = () => {
     let checkoutContainer = document.querySelector('#checkout');
-    
+
     let div = document.createElement('div');
-    div.setAttribute('id','checkoutContainer');
+    div.setAttribute('id', 'checkoutContainer');
     div.innerHTML += `
     <div class="mainscreen"> 
         <div class="card">
@@ -159,7 +149,7 @@ const purchaseForm = () => {
                 <input type="radio" id="credito" name="pago" value="Crédito">
                 <label for="credito">Crédito</label><br><br>
                     <p></p>
-                    <button type="submit" class="button" id="checkoutButton">CheckOut</button>
+                    <button type="button" class="button" id="checkoutButton">CheckOut</button>
             </form>
             </div>
         </div>
@@ -169,7 +159,7 @@ const purchaseForm = () => {
 
     let radioBtns = document.querySelectorAll("input[name='entrega']");
 
-    let findSelected = ()=> {
+    let findSelected = () => {
         let selected = document.querySelector("input[name='entrega']:checked").value;
         if (selected === 'Retiro en tienda') {
             document.getElementById('hideDelivery').style.display = "none";
@@ -188,7 +178,7 @@ const purchaseForm = () => {
 const checkoutButton = () => {
 
     const btn = document.querySelector('#checkoutButton');
-    btn.addEventListener('click', ()=> {
+    btn.addEventListener('click', () => {
         const form = document.getElementById('finalForm').elements;
         // form values are saved
         const name = form['nombre'].value;
@@ -199,8 +189,8 @@ const checkoutButton = () => {
         const floor = form['floor'].value;
         clients.push(new ClientData(name, email, phone, street, num, floor))
         localStorage.setItem('Clients', JSON.stringify(clients))
-        debugger
-        cart.forEach((product)=>{
+
+        cart.forEach((product) => {
             localStorage.removeItem(product.id);
         })
 
@@ -213,17 +203,17 @@ const checkoutButton = () => {
             imageAlt: 'cup coffe image',
             confirmButtonText: 'Cerrar',
             confirmButtonColor: '#5e4028',
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
                 location.replace('/index.html')
             }
-          })
+        })
     })
 }
 
 const returnToStore = () => {
     const btn = document.querySelector('#returnToStore');
-    btn.addEventListener('click', ()=> location.replace('/index.html'))
+    btn.addEventListener('click', () => location.replace('/index.html'))
 }
 
 // Return cart values from LocalStorage
@@ -231,10 +221,10 @@ const valuesFromLS = () => {
     cart = []
     for (let i = 0; i < localStorage.length; i++) {
         let key = localStorage.key(i)
-        if(!isNaN(key)){
+        if (!isNaN(key)) {
             value = JSON.parse(localStorage.getItem(key))
             cart.push(value)
-        }      
+        }
     }
     cart.length && updateCart(cart)
 }

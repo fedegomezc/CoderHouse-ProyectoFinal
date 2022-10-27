@@ -8,10 +8,10 @@ const valuesFromLS = () => {
     cart = []
     for (let i = 0; i < localStorage.length; i++) {
         let key = localStorage.key(i)
-        if(!isNaN(key)){
+        if (!isNaN(key)) {
             value = JSON.parse(localStorage.getItem(key))
             cart.push(value)
-        }      
+        }
     }
 }
 // If localStorage has items return values
@@ -20,16 +20,14 @@ const returnCartValues = () => localStorage.length && valuesFromLS()
 returnCartValues();
 
 // If another product is added in 'cafes' array, the page is automatically updated
-const loadProducts = (cafes) =>
-{
-    for (const cafe of cafes) 
-    {
-        let {id, name, price, description, image} = cafe
+const loadProducts = (cafes) => {
+    for (const cafe of cafes) {
+        let { id, name, price, description, image } = cafe
         let div = document.createElement('div');
         // set attribute for css style
-        div.setAttribute('class', 'card');  
-        div.innerHTML = 
-        `
+        div.setAttribute('class', 'card');
+        div.innerHTML =
+            `
             <img src="${image}" alt="${description}">
             <h3>$${price}</h3>
             <h4>${name}</h4>
@@ -40,18 +38,15 @@ const loadProducts = (cafes) =>
     buttonEvent()
 }
 
-const getData = async () => 
-{
-    try
-    {
+const getData = async () => {
+    try {
         const response = await fetch('./js/db.json');
         const data = await response.json();
         loadProducts(data);
         cafes.push(...data);
         setQuantityIcon();
     }
-    catch(e)
-    {
+    catch (e) {
         console.log(e);
     }
 }
@@ -59,15 +54,14 @@ const getData = async () =>
 getData();
 
 // buttons function - addToCart
-const buttonEvent = () => 
-{
+const buttonEvent = () => {
     let buttons = document.querySelectorAll('.button');
     for (const button of buttons) {
-        button.addEventListener('click', ()=> addToCart(button.id))
+        button.addEventListener('click', () => addToCart(button.id))
     }
     for (const button of buttons) {
         button.addEventListener('click', () => {
- 
+
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
@@ -79,20 +73,18 @@ const buttonEvent = () =>
                 iconColor: '#3f2f21',
                 background: '#d49f74'
             })
-        })        
+        })
     }
 }
 
-const setQuantityIcon = () =>
-{
+const setQuantityIcon = () => {
     let amount = document.querySelector('.cartAmount');
     const total = cart.reduce((acc, item) => acc + item.quantity, 0);
     amount.innerHTML = total;
 }
 
 // Add products to cart array and add 'quantity' value
-const addToCart = (id) => 
-{
+const addToCart = (id) => {
     const addQuantity = (found) => {
         // Product is already in the cart
         found.quantity++;
@@ -103,7 +95,7 @@ const addToCart = (id) =>
 
     const saveNewItem = (cafe) => {
         let newCafe = {
-            id:cafe.id,
+            id: cafe.id,
             name: cafe.name,
             price: cafe.price,
             description: cafe.description,
@@ -114,24 +106,23 @@ const addToCart = (id) =>
         localStorage.setItem(`${cafe.id}`, JSON.stringify(newCafe))
     }
 
-    const addNewItem = () => { 
-         let cafe = cafes.find(element => element.id == id);
-         cafe && saveNewItem(cafe)  
+    const addNewItem = () => {
+        let cafe = cafes.find(element => element.id == id);
+        cafe && saveNewItem(cafe)
     }
 
     // If the product is already exist in the cart, add 1 to the quantity 
     // else add the product to cart
     let found = cart.find(element => element.id == id);
-            found ? addQuantity(found) : addNewItem()
-    
+    found ? addQuantity(found) : addNewItem()
+
     setQuantityIcon(cart);
 }
 
-const searchProd = () => 
-{
+const searchProd = () => {
     // save the input value
     parameter = inputFilter.value.trim().toUpperCase();
-    
+
     if (parameter !== "") {
         // save the array with the match objects
         const result = cafes.filter(cafe => cafe.name.includes(parameter))
